@@ -12,8 +12,10 @@
 ### git 사용규칙
 
 1. 브랜치 만들어서 올리기
-git branch (자신의 이름)
-git checkout (자신의 이름)
-add,commit,push 하기
+- git branch (자신의 이름)
+- git checkout (자신의 이름)
+- git add .
+- git commit -m "---"
+- git push origin (자신의 이름)
 
 2. 자신의 이름인 폴더 만들어서 올리기
