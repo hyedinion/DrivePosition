@@ -1,33 +1,33 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef const struct _Modelpos{
+typedef const struct _Model{
     /* data */
     float x;
     float y;
     char name[20];
-} Modelpos;
+} CarModel;
 
 typedef struct _Drivepos
 {
     /* data */
     float x;
     float y;
-    Modelpos modelpos;
+    CarModel model;
 } Drivepos;
 
 
-Drivepos transformModel(Drivepos setting, Modelpos target)
+Drivepos transformModel(Drivepos setting, CarModel target)
 {
-    float real_x = setting.x + setting.modelpos.x;
-    float real_y = setting.y + setting.modelpos.y;
+    float real_x = setting.x + setting.model.x;
+    float real_y = setting.y + setting.model.y;
 
     return (Drivepos){real_x - target.x, real_y - target.y, target};
 }
 
 Drivepos getToMove(Drivepos setting, Drivepos current)
 {
-    return (Drivepos){setting.x - current.x, setting.y - current.y, setting.modelpos};
+    return (Drivepos){setting.x - current.x, setting.y - current.y, setting.model};
 }
 
 /*
@@ -52,7 +52,7 @@ Drivepos getToMove(Drivepos setting, Drivepos current)
 */
 
 //차종별 상수 세팅
-Modelpos Grandeur = {3, 3, "Grandeur"}, Morning = {1, 1, "Morning"};
+CarModel Grandeur = {3, 3, "Grandeur"}, Morning = {1, 1, "Morning"};
 
 int main()
 {
@@ -61,7 +61,7 @@ int main()
     printf("setting Morning\n");
     printf("x : %f\n", setting_Moring.x);
     printf("y : %f\n", setting_Moring.y);
-    printf("model name : %s\n", setting_Moring.modelpos.name);
+    printf("model name : %s\n", setting_Moring.model.name);
 
     printf("\n\n\n");
 
@@ -69,7 +69,7 @@ int main()
     printf("setting Grandeur(transformed)\n");
     printf("x : %f\n", setting_Grandeur.x);
     printf("y : %f\n", setting_Grandeur.y);
-    printf("model name : %s\n", setting_Grandeur.modelpos.name);
+    printf("model name : %s\n", setting_Grandeur.model.name);
 
     printf("\n\n\n");
 
