@@ -9,10 +9,11 @@
 
 >1. 브랜치 만들어서 올리기
 >
->- `git branch (자신의 이름)`
->- `git checkout (자신의 이름)`
->- `git add .`
->- `git commit -m "---"`
->- `git push origin (자신의 이름)`
->
->2. 자신의 이름인 폴더 만들어서 올리기
+>```
+>1. git branch (자신의 이름)
+>2. git checkout (자신의 이름)
+>3. git add .
+>4. git commit -m "---"
+>5. git push origin (자신의 이름)
+>```
+>2. `자신의 이름` 혹은 `파일 내용이 제목`인 폴더 만들어서 올리기
