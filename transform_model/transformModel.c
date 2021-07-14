@@ -58,22 +58,42 @@ int main()
 {
     Drivepos setting_Moring= {15, 15, Morning}, current_Grandeur = {8, 20, Grandeur};
     
+    //모닝의 세팅 출력
     printf("setting Morning\n");
     printf("x : %f\n", setting_Moring.x);
     printf("y : %f\n", setting_Moring.y);
     printf("model name : %s\n", setting_Moring.model.name);
-
+    /*
+    setting Morning
+    x : 15
+    y : 15
+    model name : Morning
+    */
     printf("\n\n\n");
 
+    //모닝의 세팅을 그랜저 세팅으로 변환 후 출력
     Drivepos setting_Grandeur = transformModel(setting_Moring, Grandeur);
     printf("setting Grandeur(transformed)\n");
     printf("x : %f\n", setting_Grandeur.x);
     printf("y : %f\n", setting_Grandeur.y);
     printf("model name : %s\n", setting_Grandeur.model.name);
-
+    /*
+    setting Grandeur(transformed)
+    x : 13
+    y : 13
+    model name : Grandeur
+    */
     printf("\n\n\n");
 
+    //얼마나 움직여야 하는지 출력
     Drivepos toMove = getToMove(setting_Grandeur, current_Grandeur);
     printf("to move\nx %f\ny %f\n", toMove.x, toMove.y);
+    /*
+    to move
+    x 5
+    y -7
+    */
+
+
     return 0;
 }
