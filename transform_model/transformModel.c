@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef const struct _Model{
+typedef const struct _CarModel{
     /* data */
     float x;
     float y;
