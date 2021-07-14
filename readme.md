@@ -1,4 +1,4 @@
-<p align="center"><img src="1.PNG"></p>
+<p align="center"><img src="img/1.PNG"></p>
 
 ### 프로젝트 요약
 <br>
