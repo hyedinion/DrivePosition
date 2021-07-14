@@ -2,7 +2,7 @@
 
 ### 프로젝트 요약
 <br>
-[제안서](./드라이브포지션 설정 애플리케이션 제안서.pdf)
+[제안서](https://github.com/hyedinion/DrivePosition/blob/master/%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C%ED%8F%AC%EC%A7%80%EC%85%98%20%EC%84%A4%EC%A0%95%20%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98%20%EC%A0%9C%EC%95%88%EC%84%9C.pdf)
 
 ### git 사용규칙
 <br>
