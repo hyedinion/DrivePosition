@@ -60,5 +60,3 @@ while (theta_sum <= pi/25):
     
 
 
-
-box(pos = vec(1, 0, 0), length = 0.1, height=0.05/2 , width = 0.15/2,  color = color.magenta)
