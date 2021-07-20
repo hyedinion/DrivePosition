@@ -24,9 +24,12 @@ typedef struct _Drivepos
     float side_left_right_angle; // 사용자가 이동시킨 좌우 사이드미러 angle
     float side_up_down_angle; // 사용자가 이동시킨 상하 사이드미러 angle
     
-    float hip_to_eye; // 엉덩이 ~ 시야까지의 거리.
-    
     CarModel model;
+    
+    /* 고정 상수값*/
+    float hip_to_eye; // 엉덩이 ~ 시야까지의 거리.
+    float sight_angle_lr = 90; // 좌우 시야각의 각도 (사이드미러에서 바라봤을때의 좌우시야 각)
+    float sight_angle_ud = 90; // 상하 시야각의 각도 (사이드미러에서 바라봤을때의 상하시야 각)
 } Drivepos;
 
 
@@ -38,8 +41,8 @@ Drivepos transformModel(Drivepos setting, CarModel target)
     float B = setting.b_u + setting.model.b_d - setting.model.e; // 대쉬보드에서 조정된 시트의 높이
     // B - target.b_d + target.e : default에서 사용자가 움직여야하는 y값
     
-    float C;
-    float D;
+    float C = setting.a_u + setting.model.c; // 사이드미러 중앙 ~ 시트설정후 사용자의 눈위치 (차량 옆면과 수평이 되는 거리)
+    float D = setting.d;  // 사이드미러 중앙 ~ 차량시트 중앙까지의 거리
     float E; // 사이드미러 중앙 ~ 사용자의 눈높이
              // 사용자의 data 입력이 들어와야 얻을 수 있는 값.
              // (사용자 설정 y값) + (사람의 엉덩이 ~ 눈위치) - (바닥 ~ 미러)
