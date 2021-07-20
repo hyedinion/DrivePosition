@@ -21,8 +21,8 @@ typedef struct _Drivepos
     /* data */
     float a_u; // 사용자가 이동시킨 x값
     float b_u; // 사용자가 이동시킨 y값
-    float side_left_right_angle; // 사용자가 이동시킨 좌우 사이드미러 angle
-    float side_up_down_angle; // 사용자가 이동시킨 상하 사이드미러 angle
+    float side_left_right_angle; // 사용자가 설정시킨 좌우 사이드미러 angle
+    float side_up_down_angle; // 사용자가 설정시킨 상하 사이드미러 angle
     
     CarModel model;
     
