@@ -23,42 +23,38 @@ typedef struct _Drivepos
     float lr_angle; // 사용자가 설정시킨 좌우 사이드미러 angle (차량 옆면 기준)
     float ud_angle; // 사용자가 설정시킨 상하 사이드미러 angle (미러의 기울기)
     
-    CarModel model;
-    
-    /* 고정 상수값*/
-    
+    CarModel model;    
 } Drivepos;
-
-float get_p_angle(float lr_angle, float C, float D)
-{
-    return (2*lr_angle - atan2(C,D));
-}
-float get_q_angle(float ud_angle, float C, float E)
-{
-    return (2*ud_angle + atan2(C,E));
-}
 
 Drivepos transformModel(Drivepos setting, CarModel target, float hip_to_eye)
 {
     /* 사용자의 성향 반영한 변수*/
-
+    
+    /* 좌석시트 */
     float A = setting.a_u + setting.model.a_d; // 사용자가 편안하다고 느끼는 공간
-    // A - target.a_d : default에서 사용자가 움직여야하는 x값
+    float delta_a = A - target.a_d; // default에서 사용자가 움직여야하는 x값
     
     float B = - setting.b_u - setting.model.b_d + setting.model.e; // 조정된 시트에서 대쉬보드까지의 높이
-    // - B - target.b_d + target.e : default에서 사용자가 움직여야하는 y값
+    float delta_b = - B - target.b_d + target.e; // default에서 사용자가 움직여야하는 y값
     
-    float C = setting.a_u + setting.model.c; // 사이드미러 중앙 ~ 시트설정후 사용자의 눈위치 (차량 옆면과 수평이 되는 거리)
-    float D = setting.d;  // 사이드미러 중앙 ~ 차량시트 중앙까지의 거리
+    /* 사이드미러 */
+    float setting_C = setting.a_u + setting.model.c; // 사이드미러 중앙 ~ 시트설정후 사용자의 눈위치 (차량 옆면과 수평이 되는 거리)
+    float target_C = delta_a + target.c;
     
-    float E = setting.b_u + setting.model.b_d + hip_to_eye - setting.model.f; 
-    // 사이드미러 중앙 ~ 사용자의 눈높이 // (바닥 ~ 조정된시트의 높이) + (사람의 엉덩이 ~ 눈위치) - (바닥 ~ 미러)
+    float setting_D = setting.d;  // 사이드미러 중앙 ~ 차량시트 중앙까지의 거리
+    float target_D = target.d;
+    
+    float setting_E = setting.b_u + setting.model.b_d + hip_to_eye - setting.model.f;  // 사이드미러 중앙 ~ 사용자의 눈높이 // (바닥 ~ 조정된시트의 높이) + (사람의 엉덩이 ~ 눈위치) - (바닥 ~ 미러)
+    float target_E = delta_b + target.b_d + hip_to_eye - target.f;         
              
-   float p = get_p_angle(setting.lr_angle, C, D); // 좌우 시야각의 각도 (사이드미러에서 바라봤을때의 좌우시야 각) // 사용자 취향반영 (바깥쪽(>90), 중간(90), 안쪽(<90)..)
-   float q = get_q_angle(setting.ud_angle, C, E); // 상하 시야각의 각도 (사이드미러에서 바라봤을때의 상하시야 각) // 사용자 취향반영 (위(>90), 중간(90), 아래(<90)..)
+    float p = 2*setting.lr_angle - atan2(setting_C, setting_D); // 좌우 시야각의 각도 (사이드미러에서 바라봤을때의 좌우시야 각) // 사용자 취향반영 (바깥쪽(>90), 중간(90), 안쪽(<90)..)
+    float q = 2*setting.ud_angle + atan2(setting_C, setting_E); // 상하 시야각의 각도 (사이드미러에서 바라봤을때의 상하시야 각) // 사용자 취향반영 (위(>90), 중간(90), 아래(<90)..)
     // 여기서 설명추가!@!@
     
-    return (Drivepos){A - target.a_d, real_y - target.y, target};
+    float target_lr_angle
+    float target_ud_angle
+    
+    return (Drivepos){delta_a, delta_b, target_lr_angle, target};
 }
 
 Drivepos getToMove(Drivepos setting, Drivepos current)
