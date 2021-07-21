@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include <math.h>
 
+#define M_PI   3.14159265358979323846264338327950288
+#define degToRad(angleInDegrees) ((angleInDegrees) * M_PI / 180.0)
+#define radToDeg(angleInRadians) ((angleInRadians) * 180.0 / M_PI)
+
 typedef const struct _CarModel{
     /* data */
 
@@ -61,14 +65,14 @@ Drivepos transformModel(Drivepos setting, CarModel target, float hip_to_eye, int
     float q = 90;
     }
     else if(default_setting ==0){ // 사용자 취향고려
-    float p_left = 2*setting.lr_angle_left - atan2(setting_C, setting_D_left); 
-    float p_right = 2*setting.lr_angle_right - atan2(setting_C, setting_D_right); 
-    float q = 2*setting.ud_angle + atan2(setting_C, setting_E); 
+    float p_left = 2*setting.lr_angle_left - radToDeg(atan2(setting_C, setting_D_left)); 
+    float p_right = 2*setting.lr_angle_right - radToDeg(atan2(setting_C, setting_D_right)); 
+    float q = 2*setting.ud_angle + radToDeg(atan2(setting_C, setting_E)); 
     }
     
-    float delta_lr_angle_left = (p_left + atan2(target_C, target_D_left))/2; // 바뀐차량에서 사용자가 움직여야하는 사이드미러 좌우각도
-    float delta_lr_angle_right = (p_right + atan2(target_C, target_D_right))/2; // 바뀐차량에서 사용자가 움직여야하는 사이드미러 좌우각도
-    float delta_ud_angle = (q - atan2(target_C, target_E))/2; // 바뀐차량에서 사용자가 움직여야하는 사이드미러 상하각도
+    float delta_lr_angle_left = (p_left + radToDeg(atan2(target_C, target_D_left)))/2; // 바뀐차량에서 사용자가 움직여야하는 사이드미러 좌우각도
+    float delta_lr_angle_right = (p_right + radToDeg(atan2(target_C, target_D_right)))/2; // 바뀐차량에서 사용자가 움직여야하는 사이드미러 좌우각도
+    float delta_ud_angle = (q - radToDeg(atan2(target_C, target_E)))/2; // 바뀐차량에서 사용자가 움직여야하는 사이드미러 상하각도
     
     return (Drivepos){delta_a, delta_b, delta_lr_angle_left, delta_lr_angle_right, delta_ud_angle, target};
 }
@@ -117,7 +121,7 @@ Drivepos getToMove(Drivepos setting, Drivepos current)
 
 
 //차종별 상수 세팅
-CarModel Morning = {34, 30, 63.5, 50.5, 103.5, 70, 70, "Morning"}, // 가상의 값 (6, 7)
+CarModel Morning = {34, 30, 63.5, 50.5, 103.5, 77, 77, "Morning"}, // 가상의 값 (6, 7)
          Avante = {34, 30, 74, 55, 125, 77, 77, "Avante"},        // 가상의 값 (2)
 
          Genesis_G70 = {34, 29, 51, 57, 134, 77, 80, "Genesis_G70"} // 현재 제네시스만 정확.
@@ -125,7 +129,7 @@ CarModel Morning = {34, 30, 63.5, 50.5, 103.5, 70, 70, "Morning"}, // 가상의 
 
 int main()
 {   
-    Drivepos setting_Model= {4, 5, 50, 48, 15, Morning}, current_Model_setting = {1, 2, 0, 0, 0, Avante};
+    Drivepos setting_Model= {4, 5, 50, 48, 35, Morning}, current_Model_setting = {1, 2, 0, 0, 0, Avante};
     /*{ x축 조정값, y축조정값, 사이드미러 좌측 조정값, 사이드미러 우측 조정값, 사이드미러 상하 조정값, 차량모델 }*/
     
     float hip_to_eye; // 엉덩이 ~ 시야까지의 거리.(키로 부터 일정한 비율로 받아옴)
