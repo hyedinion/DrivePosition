@@ -60,15 +60,16 @@ Drivepos transformModel(Drivepos setting, CarModel target, float hip_to_eye, int
     float q; // 상하 시야각의 각도 (사이드미러에서 바라봤을때의 상하시야 각) // 사용자 취향반영 (위(>90), 중간(90), 아래(<90)..)
     
     if(default_setting ==1){ // 표준값으로 세팅 (시야가 차체 방향과 나란하게 나감.)
-    float p_left = 90;
-    float p_right = 90;
-    float q = 90;
+    p_left = 90;
+    p_right = 90;
+    q = 90;
     }
     else if(default_setting ==0){ // 사용자 취향고려
-    float p_left = 2*setting.lr_angle_left - radToDeg(atan2(setting_C, setting_D_left)); 
-    float p_right = 2*setting.lr_angle_right - radToDeg(atan2(setting_C, setting_D_right)); 
-    float q = 2*setting.ud_angle + radToDeg(atan2(setting_C, setting_E)); 
+    p_left = 2*setting.lr_angle_left - radToDeg(atan2(setting_C, setting_D_left)); 
+    p_right = 2*setting.lr_angle_right - radToDeg(atan2(setting_C, setting_D_right)); 
+    q = 2*setting.ud_angle + radToDeg(atan2(setting_C, setting_E)); 
     }
+    
     
     float delta_lr_angle_left = (p_left + radToDeg(atan2(target_C, target_D_left)))/2; // 바뀐차량에서 사용자가 움직여야하는 사이드미러 좌우각도
     float delta_lr_angle_right = (p_right + radToDeg(atan2(target_C, target_D_right)))/2; // 바뀐차량에서 사용자가 움직여야하는 사이드미러 좌우각도
@@ -159,7 +160,7 @@ int main()
        if(default_setting==0 || default_setting==1)
           break;
        else
-           printf("plz check you had entered..");
+           printf("plz check you had entered..\n");
     }
     Drivepos get_transformed_setting = transformModel(setting_Model, Avante, hip_to_eye, default_setting);
     
