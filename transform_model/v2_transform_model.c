@@ -41,7 +41,7 @@ Drivepos transformModel(Drivepos setting, CarModel target, float hip_to_eye)
     float setting_C = setting.a_u + setting.model.c; // 사이드미러 중앙 ~ 시트설정후 사용자의 눈위치 (차량 옆면과 수평이 되는 거리)
     float target_C = delta_a + target.c;
     
-    float setting_D = setting.d;  // 사이드미러 중앙 ~ 차량시트 중앙까지의 거리
+    float setting_D = setting.model.d;  // 사이드미러 중앙 ~ 차량시트 중앙까지의 거리
     float target_D = target.d;
     
     float setting_E = setting.b_u + setting.model.b_d + hip_to_eye - setting.model.f;  // 사이드미러 중앙 ~ 사용자의 눈높이 // (바닥 ~ 조정된시트의 높이) + (사람의 엉덩이 ~ 눈위치) - (바닥 ~ 미러)
@@ -82,61 +82,46 @@ Drivepos getToMove(Drivepos setting, Drivepos current)
 */
 
 //차종별 상수 세팅
-CarModel Grandeur = {3, 3, "Grandeur"}, Morning = {1, 1, "Morning"};
+CarModel Morning = {34, 30, 63.5, 50.5, 70, 70, "Morning"}, // 가상의 값 (5,6)
+         Avante = {34, 30, 74, 55, 77, 77, "Avante"},        // 가상의 값 (2)
+
+         Genesis_G70 = {34, 29, 51, 57, 77, 80, "Genesis_G70"} // 현재 제네시스만 정확.
+         ;
 
 int main()
 {   
     float hip_to_eye; // 엉덩이 ~ 시야까지의 거리.(키로 부터 일정한 비율로 받아옴)
-    Drivepos setting_Morning= {15, 15, Morning}, current_Grandeur = {8, 20, Grandeur};
+    Drivepos setting_Model= {4, 5, 50, 15, Morning}, current_Model_setting = {1, 2, 0, 0, Avante};
     
     // 엉덩이에서 눈높이 까지의 길이
     printf("Enter your height : "); // 키입력
     scanf("%f",&hip_to_eye);
-    hip_to_eye *= 0.44 // 키와 엉덩이에서 눈높이까지의 길이에 대한 연관관계
+    hip_to_eye *= 0.44; // 키와 엉덩이에서 눈높이까지의 길이에 대한 연관관계
     
-    //모닝의 세팅 출력
-    printf("setting Morning\n");
-    printf("x : %f\n", setting_Morning.a_u);
-    printf("y : %f\n", setting_Morning.b_u);
-    printf("lr_angle : %f\n", setting_Morning.lr_angle);
-    printf("ud_angle : %f\n", setting_Morning.ud_angle);
-    printf("model name : %s\n", setting_Morning.model.name);
-    /*
-    setting Morning
-    x : 15
-    y : 15
-    lr_angle :
-    ud_angle :
-    model name : Morning
-    */
+    //입력 모델의 세팅 출력
+    printf("setting Model\n");
+    printf("x : %f\n", setting_Model.a_u);
+    printf("y : %f\n", setting_Model.b_u);
+    printf("lr_angle : %f\n", setting_Model.lr_angle);
+    printf("ud_angle : %f\n", setting_Model.ud_angle);
+    printf("model name : %s\n", setting_Model.model.name);
+
     printf("\n\n\n");
 
-    //모닝의 세팅을 그랜저 세팅으로 변환 후 출력
-    Drivepos setting_Grandeur = transformModel(setting_Morning, Grandeur, hip_to_eye);
-    printf("setting Grandeur(transformed)\n");
-    printf("x : %f\n", setting_Grandeur.a_u);
-    printf("y : %f\n", setting_Grandeur.b_u);
-    printf("lr_angle : %f\n", setting_Grandeur.lr_angle);
-    printf("ud_angle : %f\n", setting_Grandeur.ud_angle);
-    printf("model name : %s\n", setting_Grandeur.model.name);
-    /*
-    setting Grandeur(transformed)
-    x : 13
-    y : 13
-    lr_angle :
-    ud_angle :
-    model name : Grandeur
-    */
+    //현재 차량 모델에 따라 변환된 세팅값 출력
+    Drivepos get_transformed_setting = transformModel(setting_Model, Avante, hip_to_eye);
+    printf("setting Avante(transformed)\n");
+    printf("x : %f\n", get_transformed_setting.a_u);
+    printf("y : %f\n", get_transformed_setting.b_u);
+    printf("lr_angle : %f\n", get_transformed_setting.lr_angle);
+    printf("ud_angle : %f\n", get_transformed_setting.ud_angle);
+    printf("model name : %s\n", get_transformed_setting.model.name);
+
     printf("\n\n\n");
 
     //얼마나 움직여야 하는지 출력
-    Drivepos toMove = getToMove(setting_Grandeur, current_Grandeur);
+    Drivepos toMove = getToMove(get_transformed_setting, current_Model_setting);
     printf("to move\nx %f\ny %f\nlr_angle %f\nud_angle %f\n", toMove.a_u, toMove.b_u, toMove.lr_angle, toMove.ud_angle);
-    /*
-    to move
-    x 5
-    y -7
-    */
 
 
     return 0;
