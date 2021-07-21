@@ -151,7 +151,7 @@ int main()
     while(1)
     {  
       printf("Do you want default setting?? (YES:1 NO:0):");
-      scanf("%d",default_setting);
+      scanf("%d",&default_setting);
        if(default_setting==0 || default_setting==1)
           break;
        else
