@@ -175,7 +175,7 @@ int main()
     //현재 차량 모델에 따라 변환된 세팅값 출력
     while(1)
     {  
-      printf("Do you want default setting?? (YES:1 NO:0):");
+      printf("Do you want default setting?? (YES:1 NO:0): ");
       scanf("%d",&default_setting);
        if(default_setting==0 || default_setting==1)
           break;
@@ -184,7 +184,7 @@ int main()
     }
         while(1)
     {  
-      printf("choose height version (1 or 2 or 3:");
+      printf("choose height version (1 or 2 or 3): ");
       scanf("%d",&ver);
        if(ver==1 || ver==2 || ver==3)
           break;
