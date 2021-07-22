@@ -1,0 +1,4 @@
+utf-8로 작성
+
+javac [filename] -encoding utf-8
+java [classname]
