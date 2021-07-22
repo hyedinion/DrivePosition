@@ -43,7 +43,7 @@ Drivepos transformModel(Drivepos setting, CarModel target, float hip_to_eye, int
     
     float B; // 시트의 높이를 결정할때 사용자의 취향이 반영된 변수
     float delta_b; // 바뀐차량에서 사용자가 움직여야하는 y값
-    
+   
     if(ver == 1){ // ver 1 : 바닥에서 편안한 공간을 확보한 값을 이용하여 시트조정
         B = setting.b_u + setting.model.b_d;
         delta_b = B - target.b_d;
@@ -123,7 +123,10 @@ Drivepos getToMove(Drivepos setting, Drivepos current)
     -process-
     1. input값을 토대로 사용자 특성을 추출
      시트x축 : 사용자의 편안한 공간 확보
-     시트y축 : 차량의 대시보드에서 부터 올라온 눈높이
+     시트y축 : 
+      // ver 1 : 바닥에서 편안한 공간을 확보한 값을 이용하여 시트조정
+      // ver 2 : 대시보드에서 시선이 올라오는 고정값으로 시트조정 
+      // ver 3: 대시보드에 사용자 시선이 위치하는 지점의 비율을 고려하여 시트조정.
      사이드미러 좌우,상하 : 사용자가 미러를 바라봤을때 보이는 시야의 방향 (즉, 사이드 미러에서 반사된 사용자의 시야각)
     2. 추출된 사용자 특성을 토대로 새로운 차량에 적용.
     3. 새로운 차량에 적용되있던 포지션에서 1,2 에서 구한 포지션을 적용.
