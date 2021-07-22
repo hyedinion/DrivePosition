@@ -16,6 +16,7 @@ typedef const struct _CarModel{
     float d_right; // 우측 사이드미러 중앙 ~ 시트 중앙까지의 거리 (차량 옆면과 수직되는 거리측정.)
     float e; // 차량내부 바닥 ~ 대시보드
     float f; // 차량내부 바닥 ~ 사이드미러 중앙까지의 높이
+    float g; // 대시 ~ 천장
 
     char name[20];
 } CarModel;
@@ -32,7 +33,7 @@ typedef struct _Drivepos
     CarModel model;    
 } Drivepos;
 
-Drivepos transformModel(Drivepos setting, CarModel target, float hip_to_eye, int default_setting)
+Drivepos transformModel(Drivepos setting, CarModel target, float hip_to_eye, int default_setting, int ver)
 {
     /* 사용자의 성향 반영한 변수*/
     
@@ -40,9 +41,18 @@ Drivepos transformModel(Drivepos setting, CarModel target, float hip_to_eye, int
     float A = setting.a_u + setting.model.a_d; // 사용자가 편안하다고 느끼는 공간
     float delta_a = A - target.a_d; // 바뀐차량에서 사용자가 움직여야하는 x값
     
-    float B = - setting.b_u - setting.model.b_d + setting.model.e; // 조정된 시트에서 대쉬보드까지의 높이
-    float delta_b = - B - target.b_d + target.e; // 바뀐차량에서 사용자가 움직여야하는 y값
+    float B; // 시트의 높이를 결정할때 사용자의 취향이 반영된 변수
+    float delta_b; // 바뀐차량에서 사용자가 움직여야하는 y값
     
+    if(ver == 2){   // ver 2 : 대시보드에서 시선이 올라오는 고정값으로 시트조정 
+       B = - setting.b_u - setting.model.b_d + setting.model.e; // 조정된 시트에서 대쉬보드까지의 높이
+       delta_b = - B - target.b_d + target.e; 
+    }
+    else if(ver ==3 ){   // ver 3: 대시보드에 사용자 시선이 위치하는 지점의 비율을 고려하여 시트조정.
+       B = ( hip_to_eye + setting.b_u + setting.model.b_d - setting.model.e ) / setting.model.g  // 사용자가 시트를 조정 했을때 대시보드에 사용자 시선이 위치하는 지점의 비율
+       delta_b = B * target.g - hip_to_eye - target.b_d + target.e;
+    }
+
     /* 사이드미러 */
     float setting_C = setting.a_u + setting.model.c; // 사이드미러 중앙 ~ 시트설정후 사용자의 눈위치 (차량 옆면과 수평이 되는 거리)
     float target_C = delta_a + target.c;
@@ -135,6 +145,7 @@ int main()
     
     float hip_to_eye; // 엉덩이 ~ 시야까지의 거리.(키로 부터 일정한 비율로 받아옴)
     int default_setting = 0; // 사용자취향x 표준값 적용.(선택사항)
+    int ver=0; // ver 2 : 대시보드에서 시선이 올라오는 고정값으로 시트조정 // ver 3: 대시보드에 사용자 시선이 위치하는 지점의 비율을 고려하여 시트조정.
     
     // 엉덩이에서 눈높이 까지의 길이
     printf("Enter your height : "); // 키입력
@@ -162,7 +173,16 @@ int main()
        else
            printf("plz check you had entered..\n");
     }
-    Drivepos get_transformed_setting = transformModel(setting_Model, Avante, hip_to_eye, default_setting);
+        while(1)
+    {  
+      printf("choose height version (2 or 3:");
+      scanf("%d",&ver);
+       if(ver==2 || ver==3)
+          break;
+       else
+           printf("plz check you had entered..\n");
+    }
+    Drivepos get_transformed_setting = transformModel(setting_Model, Avante, hip_to_eye, default_setting, ver);
     
     printf("setting Avante(transformed)\n");
     printf("x : %f\n", get_transformed_setting.a_u);
