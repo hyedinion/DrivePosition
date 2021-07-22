@@ -44,11 +44,15 @@ Drivepos transformModel(Drivepos setting, CarModel target, float hip_to_eye, int
     float B; // 시트의 높이를 결정할때 사용자의 취향이 반영된 변수
     float delta_b; // 바뀐차량에서 사용자가 움직여야하는 y값
     
-    if(ver == 2){   // ver 2 : 대시보드에서 시선이 올라오는 고정값으로 시트조정 
+    if(ver == 1){ // ver 1 : 바닥에서 편안한 공간을 확보한 값을 이용하여 시트조정
+        B = setting.b_u + setting.model.b_d;
+        delta_b = B - target.b_d;
+    }
+    else if(ver == 2){   // ver 2 : 대시보드에서 시선이 올라오는 고정값으로 시트조정 
        B = - setting.b_u - setting.model.b_d + setting.model.e; // 조정된 시트에서 대쉬보드까지의 높이
        delta_b = - B - target.b_d + target.e; 
     }
-    else if(ver ==3 ){   // ver 3: 대시보드에 사용자 시선이 위치하는 지점의 비율을 고려하여 시트조정.
+    else if(ver == 3){   // ver 3: 대시보드에 사용자 시선이 위치하는 지점의 비율을 고려하여 시트조정.
        B = ( hip_to_eye + setting.b_u + setting.model.b_d - setting.model.e ) / setting.model.g;  // 사용자가 시트를 조정 했을때 대시보드에 사용자 시선이 위치하는 지점의 비율
        delta_b = B * target.g - hip_to_eye - target.b_d + target.e;
     }
@@ -69,17 +73,16 @@ Drivepos transformModel(Drivepos setting, CarModel target, float hip_to_eye, int
     float p_right; // 우측사이드 좌우 시야각의 각도 (사이드미러에서 바라봤을때의 좌우시야 각) // 사용자 취향반영 (바깥쪽(>90), 중간(90), 안쪽(<90)..)
     float q; // 상하 시야각의 각도 (사이드미러에서 바라봤을때의 상하시야 각) // 사용자 취향반영 (위(>90), 중간(90), 아래(<90)..)
     
-    if(default_setting ==1){ // 표준값으로 세팅 (시야가 차체 방향과 나란하게 나감.)
+    if(default_setting == 1){ // 표준값으로 세팅 (시야가 차체 방향과 나란하게 나감.)
     p_left = 90;
     p_right = 90;
     q = 90;
     }
-    else if(default_setting ==0){ // 사용자 취향고려
+    else if(default_setting == 0){ // 사용자 취향고려
     p_left = 2*setting.lr_angle_left - radToDeg(atan2(setting_C, setting_D_left)); 
     p_right = 2*setting.lr_angle_right - radToDeg(atan2(setting_C, setting_D_right)); 
     q = 2*setting.ud_angle + radToDeg(atan2(setting_C, setting_E)); 
     }
-    
     
     float delta_lr_angle_left = (p_left + radToDeg(atan2(target_C, target_D_left)))/2; // 바뀐차량에서 사용자가 움직여야하는 사이드미러 좌우각도
     float delta_lr_angle_right = (p_right + radToDeg(atan2(target_C, target_D_right)))/2; // 바뀐차량에서 사용자가 움직여야하는 사이드미러 좌우각도
@@ -176,9 +179,9 @@ int main()
     }
         while(1)
     {  
-      printf("choose height version (2 or 3:");
+      printf("choose height version (1 or 2 or 3:");
       scanf("%d",&ver);
-       if(ver==2 || ver==3)
+       if(ver==1 || ver==2 || ver==3)
           break;
        else
            printf("plz check you had entered..\n");
