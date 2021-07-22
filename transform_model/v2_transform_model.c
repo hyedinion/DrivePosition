@@ -49,7 +49,7 @@ Drivepos transformModel(Drivepos setting, CarModel target, float hip_to_eye, int
        delta_b = - B - target.b_d + target.e; 
     }
     else if(ver ==3 ){   // ver 3: 대시보드에 사용자 시선이 위치하는 지점의 비율을 고려하여 시트조정.
-       B = ( hip_to_eye + setting.b_u + setting.model.b_d - setting.model.e ) / setting.model.g  // 사용자가 시트를 조정 했을때 대시보드에 사용자 시선이 위치하는 지점의 비율
+       B = ( hip_to_eye + setting.b_u + setting.model.b_d - setting.model.e ) / setting.model.g;  // 사용자가 시트를 조정 했을때 대시보드에 사용자 시선이 위치하는 지점의 비율
        delta_b = B * target.g - hip_to_eye - target.b_d + target.e;
     }
 
@@ -132,10 +132,10 @@ Drivepos getToMove(Drivepos setting, Drivepos current)
 
 
 //차종별 상수 세팅
-CarModel Morning = {34, 30, 63.5, 50.5, 103.5, 77, 77, "Morning"}, // 가상의 값 (6, 7)
-         Avante = {34, 30, 74, 55, 125, 77, 77, "Avante"},        // 가상의 값 (2)
+CarModel Morning = {34, 30, 63.5, 50.5, 103.5, 77, 77, 35, "Morning"}, // 가상의 값 (6, 7 ,8)
+         Avante = {34, 30, 74, 55, 125, 77, 77, 38,"Avante"},        // 가상의 값 (2, 8)
 
-         Genesis_G70 = {34, 29, 51, 57, 134, 77, 80, "Genesis_G70"} // 현재 제네시스만 정확.
+         Genesis_G70 = {34, 29, 51, 57, 134, 77, 80, 40, "Genesis_G70"} // 현재 제네시스만 정확.
          ;
 
 int main()
