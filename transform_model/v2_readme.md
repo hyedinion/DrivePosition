@@ -4,7 +4,7 @@
 
 초기 차량에서 얻은 설정들을 토대로 사용자 특성값을 추출해내고, 사용자 특성값을 이용하여 새로운 차량에 적용한다.
 
-![sequence](C:\Users\ehdgn\Desktop\img\sequence.JPG)
+![sequence](.\img\sequence.JPG)
 
     -input-
     
@@ -46,7 +46,7 @@
 
 아래의 사진을 이용하여 원리를 설명함.
 
-![introduce_position](C:\Users\ehdgn\Desktop\img\introduce_position.JPG)
+![introduce_position](.\img\introduce_position.JPG)
 
 
 
@@ -62,9 +62,9 @@
 
 사용자 특성을 계산하기위해서 다음과같이 변수를 설정하였다.
 
-![introduce_variable](C:\Users\ehdgn\Desktop\img\introduce_variable.JPG)
+![introduce_variable](.\img\introduce_variable.JPG)
 
-![introduce_position_2](C:\Users\ehdgn\Desktop\img\introduce_position_2.JPG)
+![introduce_position_2](.\img\introduce_position_2.JPG)
 
 ### 1. 좌석 시트 조정
 
@@ -76,7 +76,7 @@
 
 A = 사용자가 편안하다고 느끼는 공간 
 
-![A_model1](C:\Users\ehdgn\Desktop\img\A_model1.JPG)
+![A_model1](.\img\A_model1.JPG)
 
 A = a_d + a_u로 사용자의 특성을 계산하고
 
@@ -90,7 +90,7 @@ A = a_d + a_u로 사용자의 특성을 계산하고
 
 B = 사용자가 편안하다고 느끼는 공간
 
-![B_model1](C:\Users\ehdgn\Desktop\img\B_model1.JPG)
+![B_model1](.\img\B_model1.JPG)
 
 B = b_d + b_u로 사용자의 특성을 계산하고
 
@@ -104,7 +104,7 @@ B = b_d + b_u로 사용자의 특성을 계산하고
 
 B = 조정된 시트에서 대쉬 보드 까지의 높이
 
-![B_model2](C:\Users\ehdgn\Desktop\img\B_model2.JPG)
+![B_model2](.\img\B_model2.JPG)
 
 B = e - b_u - b_d로 사용자특성을 계산하고
 
@@ -120,7 +120,7 @@ B = e - b_u - b_d로 사용자특성을 계산하고
 
 B = 사용자가 시트를 조정 했을때 대시보드에서 사용자 시선이 위치하는 지점의 비율
 
-![B_model3](C:\Users\ehdgn\Desktop\img\B_model3.JPG)
+![B_model3](.\img\B_model3.JPG)
 
 B = ( hip_to_eye + b_u + b_d - e ) / g 로 사용자의 특성을 계산하고
 
@@ -146,9 +146,9 @@ D_left, D_right = 사이드미러 중앙 ~ 차량시트 중앙까지의 거리
 
 구하는 방법은 좌측 사이드미러나 우측사이드 미러나 같기때문에 좌측사이드를 기준으로 설명함.
 
-![introduce_variable](C:\Users\ehdgn\Desktop\img\introduce_variable.JPG)
+![introduce_variable](.\img\introduce_variable.JPG)
 
-![introduce_position_2](C:\Users\ehdgn\Desktop\img\introduce_position_2.JPG)
+![introduce_position_2](.\img\introduce_position_2.JPG)
 
 C =  c + a_u
 
