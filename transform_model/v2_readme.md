@@ -62,6 +62,7 @@
 
 <p align="center"><img src="img\introduce_variable.JPG"></p>
 <p align="center"><img src="img\introduce_position_2.JPG"></p>
+
 ### 1. 좌석 시트 조정
 
 #### ● 시트 앞뒤
