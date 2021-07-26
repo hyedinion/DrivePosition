@@ -1,32 +1,7 @@
 import math
+from transform_base import *
 
-class CarModel:    
-    def __init__(self, a_d, b_d, c, d_left, d_right, e, f, g, name:str):
-        self.a_d = a_d #페달 ~ 시트를 맨앞으로 당겼을때의 거리
-        self.b_d = b_d #차량내부 바닥 ~ 시트를 맨아래로 내렸을때의 거리
-        self.c = c #사이드미러 중앙 ~ 시트를 맨앞으로 당겼을때 눈위치(사람머리두께를 약 17 ~ 18cm 라고 가정, 차량 옆면과 수평이 되는 거리측정.)
-        self.d_left = d_left #좌측 사이드미러 중앙 ~ 시트 중앙까지의 거리 (차량 옆면과 수직되는 거리측정.)
-        self.d_right = d_right #우측 사이드미러 중앙 ~ 시트 중앙까지의 거리 (차량 옆면과 수직되는 거리측정.)
-        self.e = e #차량내부 바닥 ~ 대시보드
-        self.f = f #차량내부 바닥 ~ 사이드미러 중앙까지의 높이
-        self.g = g #대시 ~ 천장
-        self.name:str = name
-
-class Drivepos:    
-    def __init__(self, a_u, b_u, lr_angle_left, lr_angle_right, ud_angle, model:CarModel):
-        self.a_u = a_u #사용자가 이동시킨 x값
-        self.b_u = b_u #사용자가 이동시킨 y값
-        self.lr_angle_left = lr_angle_left #사용자가 설정시킨 좌우 사이드미러 angle (차량 옆면 기준)
-        self.lr_angle_right = lr_angle_right #사용자가 설정시킨 좌우 사이드미러 angle (차량 옆면 기준)
-        self.ud_angle = ud_angle #사용자가 설정시킨 상하 사이드미러 angle (미러의 기울기)
-        self.model:CarModel = model #carmodel class 객체
-    
-    def __iter__(self):
-        for key in self.__dict__:
-             yield (key, self.__dict__[key]) if key != 'model' else (key, self.__dict__[key].__dict__)
-
-def transformModel(setting,target,hip_to_eye,default_setting,ver):
-    
+def transformModel(setting:Drivepos, target:CarModel, hip_to_eye, default_setting, ver):
     #사용자의 성향 반영한 변수
     
     #좌석시트
@@ -37,19 +12,19 @@ def transformModel(setting,target,hip_to_eye,default_setting,ver):
     
     B = 0.0 # 시트의 높이를 결정할때 사용자의 취향이 반영된 변수
     delta_b=0.0 # 바뀐차량에서 사용자가 움직여야하는 y값
-   
+
+   #ver 1 : 바닥에서 편안한 공간을 확보한 값을 이용하여 시트조정
     if ver == 1 :
-        #ver 1 : 바닥에서 편안한 공간을 확보한 값을 이용하여 시트조정
         B = setting.b_u + setting.model.b_d
         delta_b = B - target.b_d
-        
+
+    #ver 2 : 대시보드에서 시선이 올라오는 고정값으로 시트조정
     elif ver == 2:
-        #ver 2 : 대시보드에서 시선이 올라오는 고정값으로 시트조정 
         B = - setting.b_u - setting.model.b_d + setting.model.e #조정된 시트에서 대쉬보드까지의 높이
         delta_b = - B - target.b_d + target.e
 
+    #ver 3: 대시보드에 사용자 시선이 위치하는 지점의 비율을 고려하여 시트조정.
     elif ver == 3 :
-        #ver 3: 대시보드에 사용자 시선이 위치하는 지점의 비율을 고려하여 시트조정.
         B = ( hip_to_eye + setting.b_u + setting.model.b_d - setting.model.e ) / setting.model.g  #사용자가 시트를 조정 했을때 대시보드에 사용자 시선이 위치하는 지점의 비율
         delta_b = B * target.g - hip_to_eye - target.b_d + target.e
 
@@ -87,7 +62,7 @@ def transformModel(setting,target,hip_to_eye,default_setting,ver):
     return Drivepos(delta_a, delta_b, delta_lr_angle_left, delta_lr_angle_right, delta_ud_angle, target)
 
 
-def getToMove(setting,current):
+def getToMove(setting, current):
     return Drivepos(setting.a_u - current.a_u, setting.b_u - current.b_u, setting.lr_angle_left - current.lr_angle_left, setting.lr_angle_right - current.lr_angle_left , setting.ud_angle - current.ud_angle, setting.model)
 
 '''/*
@@ -159,7 +134,7 @@ def main():
     print("ud_angle : {}".format(setting_Model.ud_angle))
     print("model name : {}".format(setting_Model.model.name))
 
-    print("\n\n");
+    print("\n\n")
 
     #//현재 차량 모델에 따라 변환된 세팅값 출력
     while(True):
