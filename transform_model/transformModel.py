@@ -90,7 +90,6 @@ def transformModel(setting,target,hip_to_eye,default_setting,ver):
 def getToMove(setting,current):
     return Drivepos(setting.a_u - current.a_u, setting.b_u - current.b_u, setting.lr_angle_left - current.lr_angle_left, setting.lr_angle_right - current.lr_angle_left , setting.ud_angle - current.ud_angle, setting.model)
 
-
 '''/*
 ****예시 상황****
    모닝에서 DrivePosition을 저장한 사용자가 그랜저를 운전하려는 상황
