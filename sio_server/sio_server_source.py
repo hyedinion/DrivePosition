@@ -1,6 +1,7 @@
 import socketio
 import eventlet
-from ..transform_model.transformModel import CarModel, Drivepos, transformModel
+from ..transform_model.transform_base import *
+from ..transform_model.transform_utils import transformModel
 
 ISVPYTHON = True
 

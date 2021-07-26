@@ -10,6 +10,11 @@ class CarModel:
         self.g = g #대시 ~ 천장
         self.name:str = name
 
+class PersonalConst:
+    def __init__(self, hip_to_eye, default_side) -> None:
+        self.hip_to_eye = hip_to_eye
+        self.default_side = default_side
+
 class Drivepos:
     def __init__(self, a_u, b_u, lr_angle_left, lr_angle_right, ud_angle, model:CarModel):
         self.a_u = a_u #사용자가 이동시킨 x값
