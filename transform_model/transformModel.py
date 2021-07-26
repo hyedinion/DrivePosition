@@ -190,7 +190,7 @@ print("model name : {}".format(get_transformed_setting.model.name))
 print("\n\n")
 
 #새로운 차량의 현재 세팅값 출력
-print("current Avante setting")
+print("current {} setting".format(current_Model_setting.model.name))
 print("x : {}".format(current_Model_setting.a_u))
 print("y : {}".format(current_Model_setting.b_u))
 print("lr_angle_left : {}".format(current_Model_setting.lr_angle_left))
