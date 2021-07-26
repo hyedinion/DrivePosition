@@ -189,6 +189,17 @@ def main():
 
     print("\n\n")
 
+    #새로운 차량의 현재 세팅값 출력
+    print("current {} setting".format(current_Model_setting.model.name))
+    print("x : {}".format(current_Model_setting.a_u))
+    print("y : {}".format(current_Model_setting.b_u))
+    print("lr_angle_left : {}".format(current_Model_setting.lr_angle_left))
+    print("lr_angle_left : {}".format(current_Model_setting.lr_angle_right))
+    print("ud_angle : {}".format(current_Model_setting.ud_angle))
+    print("model name : {}".format(current_Model_setting.model.name))
+
+    print("\n\n")
+
     #얼마나 움직여야 하는지 출력`
     toMove = getToMove(get_transformed_setting, current_Model_setting)
     print("to move\nx {}\ny {}\nlr_angle_left {}\nlr_angle_right {}\nud_angle {}\n".format(toMove.a_u, toMove.b_u, toMove.lr_angle_left, toMove.lr_angle_right, toMove.ud_angle))
