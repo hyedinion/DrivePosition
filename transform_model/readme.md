@@ -4,8 +4,7 @@
 
 초기 차량에서 얻은 설정들을 토대로 사용자 특성값을 추출해내고, 사용자 특성값을 이용하여 새로운 차량에 적용한다.
 
-![sequence](.\img\sequence.JPG)
-
+<p align="center"><img src="img\sequence.JPG"></p>
     -input-
     
     <차량재원>
