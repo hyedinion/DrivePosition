@@ -45,8 +45,8 @@
 
 아래의 사진을 이용하여 원리를 설명함.
 
-![introduce_position](.\img\introduce_position.JPG)
 
+<p align="center"><img src="img\introduce_position.JPG"></p>
 
 
 
@@ -74,9 +74,9 @@
 
 
 
-![introduce_variable](.\img\introduce_variable.JPG)
+<p align="center"><img src="img\introduce_variable.JPG"></p>
+<p align="center"><img src="img\introduce_position_2.JPG"></p>
 
-![introduce_position_2](.\img\introduce_position_2.JPG)
 
 ### 1. 좌석 시트 조정
 
@@ -88,8 +88,7 @@
 
 A = 사용자가 편안하다고 느끼는 공간 
 
-![A_model1](.\img\A_model1.JPG)
-
+<p align="center"><img src="img\A_model1.JPG"></p>
 A = a_d + a_u로 사용자의 특성을 계산하고
 
 새로운차량에서 A - a_d를 한값으로 사용자가 움직여야하는거리 a_u를 계산한다.
@@ -102,7 +101,7 @@ A = a_d + a_u로 사용자의 특성을 계산하고
 
 B = 사용자가 편안하다고 느끼는 공간
 
-![B_model1](.\img\B_model1.JPG)
+<p align="center"><img src="img\B_model1.JPG"></p>
 
 B = b_d + b_u로 사용자의 특성을 계산하고
 
@@ -116,7 +115,7 @@ B = b_d + b_u로 사용자의 특성을 계산하고
 
 B = 조정된 시트에서 대쉬 보드 까지의 높이
 
-![B_model2](.\img\B_model2.JPG)
+<p align="center"><img src="img\B_model2.JPG"></p>
 
 B = e - b_u - b_d로 사용자특성을 계산하고
 
@@ -132,7 +131,7 @@ B = e - b_u - b_d로 사용자특성을 계산하고
 
 B = 사용자가 시트를 조정 했을때 대시보드에서 사용자 시선이 위치하는 지점의 비율
 
-![B_model3](.\img\B_model3.JPG)
+<p align="center"><img src="img\B_model3.JPG"></p>
 
 B = ( hip_to_eye + b_u + b_d - e ) / g 로 사용자의 특성을 계산하고
 
@@ -158,9 +157,8 @@ D_left, D_right = 사이드미러 중앙 ~ 차량시트 중앙까지의 거리
 
 구하는 방법은 좌측 사이드미러나 우측사이드 미러나 같기때문에 좌측사이드를 기준으로 설명함.
 
-![introduce_variable](.\img\introduce_variable.JPG)
-
-![introduce_position_2](.\img\introduce_position_2.JPG)
+<p align="center"><img src="img\introduce_variable.JPG"></p>
+<p align="center"><img src="img\introduce_position_2.JPG"></p>
 
 C = c + a_u
 
@@ -172,13 +170,12 @@ k = arctan(C / D)
 
 여기서 p를 계산하기위해서 다음과 같은 사각형의 내각의 합이 360도를 만족한다는것을 이용하였다.
 
-![lr_angle_calculate_1](.\img\lr_angle_calculate_1.JPG)
-
-![angle_calculate_2](.\img\lr_angle_calculate_2.JPG)
+<p align="center"><img src="img\lr_angle_calculate_1.JPG"></p>
+<p align="center"><img src="img\lr_angle_calculate_2.JPG"></p>
 
 그래서 사용자 특성인 p와 자동차 사이드미러의 각도인 lr_angle의 값의 관계는 다음과 같다.
 
-![lr_angle_calculate_3](.\img\lr_angle_calculate_3.JPG)
+<p align="center"><img src="img\lr_angle_calculate_3.JPG"></p>
 
 그러므로 처음 설정되어있던 사이드미러 각도 lr_angle을 통해서 사용자의 시야각 특성 변수 p의 값을 구해내고, 새로운 차량에서 p의 값을 이용하여 새로 setting 해야되는 자동차의 사이드 미러 각도 lr_angle을 구해낸다. (이때, k값을 구하기위해 사용된 C, D 도 새로운 차량에 맞게 변화시켜줘야한다.)
 
@@ -198,7 +195,7 @@ E = 사이드미러 중앙 ~ 사용자의 눈높이 ((바닥 ~ 조정된시트�
 
 q = 사용자가 사이드미러 중앙을 바라봤을 때 보이는 시야를 각도로 표현 (C와 E를 이용하여 구함.)
 
-![ud_angle_calculate_1](.\img\ud_angle_calculate_1.JPG)
+<p align="center"><img src="img\ud_angle_calculate_1.JPG"></p>
 
 C = c + a_u
 
@@ -210,10 +207,10 @@ j = arctan(C / E)
 
 여기서 q를 계산하기위해서 다음과같은 형태의 도형에서 반사각과 입사각의 성질을 이용하여 q와 ud_angle의 각의 관계를 구해보았다.
 
-![ud_angle_calculate_2](.\img\ud_angle_calculate_2.JPG)
+<p align="center"><img src="img\ud_angle_calculate_2.JPG"></p>
 
 그래서 사용자 특성인 q와 자동차 사이드미러의 각도인 ud_angle의 값의 관계는 다음과 같다.
 
-![ud_angle_calculate_3](.\img\ud_angle_calculate_3.JPG)
+<p align="center"><img src="img\ud_angle_calculate_3.JPG"></p>
 
 그러므로 처음 설정되어있던 사이드미러 각도 ud_angle을 통해서 사용자의 시야각 특성 변수 q의 값을 구해내고, 새로운 차량에서 q의 값을 이용하여 새로 setting 해야되는 자동차의 사이드 미러 각도 ud_angle을 구해낸다. (이때, j값을 구하기위해 사용된 C, E 도 새로운 차량에 맞게 변화시켜줘야한다.)
