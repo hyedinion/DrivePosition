@@ -18,6 +18,8 @@
 > - 키를 입력하면 connect 버튼을 누를 수 있고 connect_response를 통해 CarModel의 `data`를 받으면 다음 창에서 save버튼을 통해 db에 저장할 수 있다. 
 > - 이미 db에 키 정보와 checkbox 정보가 등록되어 있다면 connectActivity접속시 디비의 정보를 읽어와 UI에 반영한다.
 
+<p align="center"><img src="connectactivity.PNG"></p>
+
 <br><br>
 
 ## MainActivity
@@ -27,3 +29,5 @@
 2. apply 버튼
 > - 만약 save 버튼을 먼저 누르지 않고 apply버튼을 누르면 사용자 drivepostion에 대한 정보가 없으므로 save버튼을 먼저 누르라고 toast message가 뜬다
 > - save 버튼을 누른 후 다른 차량에 탑승 후 apply 버튼을 누르게 되면 사용자의 height, setting, driveposition이 서버에 전송된다.
+
+<p align="center"><img src="mainactivity.PNG"></p>
