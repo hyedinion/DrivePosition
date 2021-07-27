@@ -108,17 +108,15 @@ def main():
     # 엉덩이에서 눈높이 까지의 길이
     hip_to_eye = float(input("Enter your height : "))# 키입력
     hip_to_eye = hip_to_eye * 0.438 + 5.0973 # 키와 엉덩이에서 눈높이까지의 길이에 대한 연관관계
-
+    print("\n")
     #//입력 모델의 세팅 출력
-    print("setting Model")
+    print("** setting Model : {} **".format(setting_Model.model.name))
     print("x : {}".format(setting_Model.a_u))
     print("y : {}".format(setting_Model.b_u))
     print("lr_angle_left : {}".format(setting_Model.lr_angle_left))
     print("lr_angle_right : {}".format(setting_Model.lr_angle_right))
     print("ud_angle : {}".format(setting_Model.ud_angle))
-    print("model name : {}".format(setting_Model.model.name))
-
-    print("\n\n")
+    print("\n")
 
     #//현재 차량 모델에 따라 변환된 세팅값 출력
     
@@ -135,29 +133,26 @@ def main():
             break
         else:
             print("plz check you had entered..")
-
+    print("\n")
     get_transformed_setting = transformModel(setting_Model, Avante, PersonalConst(hip_to_eye, default_setting), ver)
 
-    print("setting Avante(transformed)")
+    print("** setting Model : Avante(transformed) **")
     print("x : {}".format(get_transformed_setting.a_u))
     print("y : {}".format(get_transformed_setting.b_u))
     print("lr_angle_left : {}".format(get_transformed_setting.lr_angle_left))
     print("lr_angle_left : {}".format(get_transformed_setting.lr_angle_right))
     print("ud_angle : {}".format(get_transformed_setting.ud_angle))
     print("model name : {}".format(get_transformed_setting.model.name))
-
-    print("\n\n")
+    print("\n")
 
     #새로운 차량의 현재 세팅값 출력
-    print("current {} setting".format(current_Model_setting.model.name))
+    print("** current setting : {} **".format(current_Model_setting.model.name))
     print("x : {}".format(current_Model_setting.a_u))
     print("y : {}".format(current_Model_setting.b_u))
     print("lr_angle_left : {}".format(current_Model_setting.lr_angle_left))
     print("lr_angle_left : {}".format(current_Model_setting.lr_angle_right))
     print("ud_angle : {}".format(current_Model_setting.ud_angle))
-    print("model name : {}".format(current_Model_setting.model.name))
-
-    print("\n\n")
+    print("\n")
 
     #얼마나 움직여야 하는지 출력
     toMove = getToMove(get_transformed_setting, current_Model_setting)
