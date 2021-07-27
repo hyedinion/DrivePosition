@@ -93,75 +93,91 @@ def getToMove(setting:Drivepos, current:Drivepos) -> Drivepos:
 */'''
 def main():
     #차종별 상수 세팅
+    
+    # setting(a~g)
     Morning = CarModel(34, 30, 63.5, 50.5, 103.5, 77, 77, 35, "Morning") # 가상의 값 (6, 7 ,8)
     Avante = CarModel(34, 30, 74, 55, 125, 77, 77, 38,"Avante") # 가상의 값 (2, 8)
     Genesis_G70 = CarModel(34, 29, 51, 57, 134, 77, 80, 40, "Genesis_G70") # 현재 제네시스만 정확.
-
-    #{ x축 조정값, y축조정값, 사이드미러 좌측 조정값, 사이드미러 우측 조정값, 사이드미러 상하 조정값, 차량모델 }*/
-    setting_Model= Drivepos(4, 5, 50, 48, 35, Morning)
-    current_Model_setting = Drivepos(1, 2, 0, 0, 0, Avante)
     
+    # test model
+    TestModel = CarModel(0,0,0,0,0,0,0,0,"test") # 1. 테스트 데이터값 입력.
+
+    ## 실측값 (a_u,b_u,lr_angle_left,lr_angle_right,ud_angle)
+    setting_Model_Morning = [Drivepos(0, 5, 48, 35, 35, Morning),
+                            Drivepos(15, 0, 48, 48, 35, Morning),
+                            Drivepos(12.5, 2, 48, 48, 35, Morning),
+                            Drivepos(13.5, 2, 48, 48, 35, Morning),
+                            Drivepos(6, 0, 48, 48, 35, Morning)]
+    setting_Model_Avante = [Drivepos(4,0,48,35,35,Avante),
+                            Drivepos(12,0,48,35,35,Avante),
+                            Drivepos(14,0,48,35,35,Avante),
+                            Drivepos(13,0,48,48,48,Avante),
+                            Drivepos(7,0,48,48,48,Avante)]
+    setting_Model_Genesis_G70 = [Drivepos(1,0,48,35,35,Genesis_G70),
+                                 Drivepos(16,0,48,35,35,Genesis_G70),
+                                 Drivepos(9,0,48,35,35,Genesis_G70),
+                                 Drivepos(12,0,48,35,35,Genesis_G70),
+                                 Drivepos(6,0,48,35,35,Genesis_G70)]
+
+
+    choose =int(input("1: Morning, 2:Avante, 3:Genesis : "))
+    if choose ==1:
+        setting_Model = setting_Model_Morning
+    elif choose ==2:
+        setting_Model = setting_Model_Avante
+    elif choose ==3:
+        setting_Model = setting_Model_Genesis_G70
+    print("")
     hip_to_eye=0.0 # 엉덩이 ~ 시야까지의 거리.(키로 부터 일정한 비율로 받아옴)
     default_setting = 0 # 사용자취향x 표준값 적용.(선택사항)
     ver=0 # ver 2 : 대시보드에서 시선이 올라오는 고정값으로 시트조정 // ver 3: 대시보드에 사용자 시선이 위치하는 지점의 비율을 고려하여 시트조정.
 
     # 엉덩이에서 눈높이 까지의 길이
-    hip_to_eye = float(input("Enter your height : "))# 키입력
-    hip_to_eye = hip_to_eye * 0.438 + 5.0973 # 키와 엉덩이에서 눈높이까지의 길이에 대한 연관관계
+    hip_to_eye = [176,156,180,172,160] # 2. 키입력
+    for i in range(0, len(hip_to_eye)):
+        hip_to_eye[i] = hip_to_eye[i] * 0.438 + 5.0973 # 키와 엉덩이에서 눈높이까지의 길이에 대한 연관관계
+        hip_to_eye[i] = round(hip_to_eye[i],4)
 
-    #//입력 모델의 세팅 출력
-    print("setting Model")
-    print("x : {}".format(setting_Model.a_u))
-    print("y : {}".format(setting_Model.b_u))
-    print("lr_angle_left : {}".format(setting_Model.lr_angle_left))
-    print("lr_angle_right : {}".format(setting_Model.lr_angle_right))
-    print("ud_angle : {}".format(setting_Model.ud_angle))
-    print("model name : {}".format(setting_Model.model.name))
+## 출력
 
-    print("\n\n")
+    for i in range(0,len(setting_Model)):
+        print("***** User",i+1," *****")
+        #//입력 모델의 세팅 출력
+        print("setting Model")
+        print("x : {}".format(setting_Model[i].a_u))
+        print("y : {}".format(setting_Model[i].b_u))
+        print("lr_angle_left : {}".format(setting_Model[i].lr_angle_left))
+        print("lr_angle_right : {}".format(setting_Model[i].lr_angle_right))
+        print("ud_angle : {}".format(setting_Model[i].ud_angle))
+        print("model name : {}".format(setting_Model[i].model.name))
 
-    #//현재 차량 모델에 따라 변환된 세팅값 출력
-    
-    while(True):
-        ver = int(input("choose height version (1 or 2 or 3): "))
-        if ver==1 or ver==2 or ver==3:
-            break
-        else:
-            print("plz check you had entered..")
 
-    while(True):
-        default_setting = int(input("Do you want default setting?? (YES:1 NO:0): "))
-        if default_setting==0 or default_setting==1:
-            break
-        else:
-            print("plz check you had entered..")
+        #//현재 차량 모델에 따라 변환된 세팅값 출력
+        while(True):
+            ver = int(input("choose height version (1 or 2 or 3): "))
+            if ver==1 or ver==2 or ver==3:
+                break
+            else:
+                print("plz check you had entered..")
 
-    get_transformed_setting = transformModel(setting_Model, Avante, PersonalConst(hip_to_eye, default_setting), ver)
+        while(True):
+            default_setting = int(input("Do you want default setting?? (YES:1 NO:0): "))
+            if default_setting==0 or default_setting==1:
+                break
+            else:
+                print("plz check you had entered..")
+        print("\n")
 
-    print("setting Avante(transformed)")
-    print("x : {}".format(get_transformed_setting.a_u))
-    print("y : {}".format(get_transformed_setting.b_u))
-    print("lr_angle_left : {}".format(get_transformed_setting.lr_angle_left))
-    print("lr_angle_left : {}".format(get_transformed_setting.lr_angle_right))
-    print("ud_angle : {}".format(get_transformed_setting.ud_angle))
-    print("model name : {}".format(get_transformed_setting.model.name))
-
-    print("\n\n")
-
-    #새로운 차량의 현재 세팅값 출력
-    print("current {} setting".format(current_Model_setting.model.name))
-    print("x : {}".format(current_Model_setting.a_u))
-    print("y : {}".format(current_Model_setting.b_u))
-    print("lr_angle_left : {}".format(current_Model_setting.lr_angle_left))
-    print("lr_angle_left : {}".format(current_Model_setting.lr_angle_right))
-    print("ud_angle : {}".format(current_Model_setting.ud_angle))
-    print("model name : {}".format(current_Model_setting.model.name))
-
-    print("\n\n")
-
-    #얼마나 움직여야 하는지 출력
-    toMove = getToMove(get_transformed_setting, current_Model_setting)
-    print("to move\nx {}\ny {}\nlr_angle_left {}\nlr_angle_right {}\nud_angle {}\n".format(toMove.a_u, toMove.b_u, toMove.lr_angle_left, toMove.lr_angle_right, toMove.ud_angle))
+         #// 여기에 새로운 자동차 모델 입력.
+        get_transformed_setting = transformModel(setting_Model[i], TestModel, PersonalConst(hip_to_eye[i], default_setting), ver)
+        print("User",i+1,"setting {} (transformed)".format(TestModel.name))
+        print("x : {}".format(get_transformed_setting.a_u))
+        print("y : {}".format(get_transformed_setting.b_u))
+        print("lr_angle_left : {}".format(get_transformed_setting.lr_angle_left))
+        print("lr_angle_left : {}".format(get_transformed_setting.lr_angle_right))
+        print("ud_angle : {}".format(get_transformed_setting.ud_angle))
+        print("model name : {}".format(get_transformed_setting.model.name))
+        print("\n\n")
 
 if __name__=='__main__':
     main()
